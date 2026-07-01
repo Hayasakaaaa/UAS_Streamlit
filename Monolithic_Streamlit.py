@@ -34,7 +34,8 @@ def main():
         num_of_delayed_payment = st.number_input("Number of Delayed Payments", min_value=0, value=1)
         changed_credit_limit = st.number_input("Changed Credit Limit", min_value=-50.0, max_value=100.0, value=10.0, step=0.5)
         num_credit_inquiries = st.number_input("Number of Credit Inquiries", min_value=0, max_value=50, value=2)
-        credit_mix = st.selectbox("Credit Mix", ["Bad", "Standard", "Good"]) # Sesuai dengan encoder kita sebelumnya
+        credit_mix = st.selectbox("Credit Mix", ["Bad", "Standard", "Good"])
+        credit_score = st.selectbox("Credit Score", ["Poor", "Standard", "Good"])
         outstanding_debt = st.number_input("Outstanding Debt", min_value=0.0, value=1500.0, step=100.0)
         credit_utilization_ratio = st.slider("Credit Utilization Ratio (%)", 0.0, 100.0, 30.0)
         
@@ -65,6 +66,7 @@ def main():
         'Changed_Credit_Limit': changed_credit_limit,
         'Num_Credit_Inquiries': num_credit_inquiries,
         'Credit_Mix': credit_mix,
+        "Credit_Score": credit_score,
         'Outstanding_Debt': outstanding_debt,
         'Credit_Utilization_Ratio': credit_utilization_ratio,
         'Payment_of_Min_Amount': payment_of_min_amount,
