@@ -7,9 +7,8 @@ from pathlib import Path
 @st.cache_resource
 def load_models():
     # Pastikan file pkl di bawah ini sesuai dengan nama file pipeline model klasifikasi & regresi terbarumu
-    model_regresi = joblib.load("monthly_balance_pipeline_reg.pkl") # Contoh target Regresi (misal: Monthly_Balance)
-    model_klasifikasi = joblib.load("credit_score_pipeline_rf.pkl") # Contoh target Klasifikasi (misal: Credit_Score)
-    return model_regresi, model_klasifikasi
+    model_klasifikasi = joblib.load("rf_pipeline.pkl") # Contoh target Klasifikasi (misal: Credit_Score)
+    return  model_klasifikasi
 
 def main():
     st.title('Financial Profile & Credit Score Analysis')
@@ -78,7 +77,7 @@ def main():
     df = pd.DataFrame([data])
 
     # Memuat model terlatih
-    model_reg, model_cls = load_models()
+    model_cls = load_models()
 
     st.divider()
     
@@ -87,7 +86,6 @@ def main():
         
         # Eksekusi prediksi lewat pipeline utuh (Preprocessing bawaan model otomatis berjalan)
         hasil_kategori = model_cls.predict(df)[0]  # Output berupa label Credit Score (e.g., 'Good' / 2)
-        hasil_skor = model_reg.predict(df)[0]      # Output berupa prediksi nilai kontinu numerik
         
         st.subheader("Hasil Analisis Model:")
         col_hasil1, col_hasil2 = st.columns(2)
@@ -96,9 +94,6 @@ def main():
             # Mengganti label sesuai target klasifikasimu (contoh: Credit Score)
             st.metric(label="Prediksi Credit Score", value=str(hasil_kategori))
             
-        with col_hasil2:
-            # Mengganti label sesuai target regresimu (misalnya memprediksi ulang atau sisa balance ideal)
-            st.metric(label="Prediksi Sisa Skor/Nilai Finansial", value=f"{hasil_skor:.2f}")
             
 if __name__ == "__main__":
     main()
